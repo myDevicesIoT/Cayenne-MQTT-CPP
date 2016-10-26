@@ -28,7 +28,7 @@ void messageArrived(Cayenne::MessageData& message)
 		mqttClient.publishResponse(message.channel, message.id, NULL, message.clientID);
 
 		// Send the updated state for the channel so it is reflected in the Cayenne dashboard. If a command is successfully processed
-		// this will usually just send the value received in the command message.
+		// the updated state will usually just be the value received in the command message.
 		mqttClient.publishData(DATA_TOPIC, message.channel, NULL, NULL, message.getValue());
 	}
 }
