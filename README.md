@@ -11,5 +11,8 @@ This library bundles the [Eclipse Paho MQTT C/C++ client](https://github.com/ecl
   - **Platform** - Platform specific networking and timer code, as well as test and example applications.
     - **Linux** - Linux C++ networking and timer code, as well as test and example applications. Test and example files can be built using the makefile.
     
-## Other Cayenne Libraries
+## Cayenne MQTT Libraries
 - **[Cayenne-MQTT-C](https://github.com/myDevicesIoT/Cayenne-MQTT-C)** - C version of the Cayenne MQTT Library.
+- **[Cayenne-MQTT-CPP](https://github.com/myDevicesIoT/Cayenne-MQTT-CPP)** - C++ version of the Cayenne MQTT Library.
+- **[Cayenne-MQTT-Arduino](https://github.com/myDevicesIoT/Cayenne-MQTT-Arduino)** - Arduino version of the Cayenne MQTT Library.
+- **[Cayenne-MQTT-mbed](https://github.com/myDevicesIoT/Cayenne-MQTT-mbed)** - mbed version of the Cayenne MQTT Library.
