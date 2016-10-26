@@ -110,11 +110,11 @@ void outputMessage(Cayenne::MessageData& message)
 		printf(" type=%s", message.type);
 	}
 	for (size_t i = 0; i < message.valueCount; ++i) {
-		if (message.values[i].unit) {
-			printf(" unit=%s", message.values[i].unit);
+		if (message.getUnit(i)) {
+			printf(" unit=%s", message.getUnit(i));
 		}
-		if (message.values[i].value) {
-			printf(" value=%s", message.values[i].value);
+		if (message.getValue(i)) {
+			printf(" value=%s", message.getValue(i));
 		}
 	}
 	if (message.id) {

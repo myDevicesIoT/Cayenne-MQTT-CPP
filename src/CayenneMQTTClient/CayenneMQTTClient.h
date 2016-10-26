@@ -38,6 +38,20 @@ namespace Cayenne
 		const char* type; /**< The type of data in the message, if it exists, otherwise NULL. */
 		CayenneValuePair values[CAYENNE_MAX_MESSAGE_VALUES]; /**< The unit/value data pairs in the message. The units and values can be NULL. */
 		size_t valueCount; /**< The count of items in the values array. */
+
+		/**
+		* Get value at specified index.
+		* @param[in] index Index of value to retrieve, if none is specified it gets the first value.
+		* @return Value at the specified index, can be NULL.
+		*/
+		const char* getValue(size_t index = 0) const { return values[index].value; }
+
+		/**
+		* Get unit at specified index.
+		* @param[in] index Index of unit to retrieve, if none is specified it gets the first unit.
+		* @return Unit at the specified index, can be NULL.
+		*/
+		const char* getUnit(size_t index = 0) const { return values[index].unit; }
 	} MessageData;
 	
 	/**
