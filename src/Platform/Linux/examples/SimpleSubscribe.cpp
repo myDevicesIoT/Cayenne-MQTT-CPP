@@ -13,11 +13,11 @@ char password[] = "MQTT_PASSWORD";
 char clientID[] = "CLIENT_ID";
 
 MQTTNetwork ipstack;
-Cayenne::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack, username, password, clientID);
+CayenneMQTT::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack, username, password, clientID);
 
 
 // Handle messages received from the Cayenne server.
-void messageArrived(Cayenne::MessageData& message)
+void messageArrived(CayenneMQTT::MessageData& message)
 {
 	printf("Message received on channel %d\n", message.channel);
 	

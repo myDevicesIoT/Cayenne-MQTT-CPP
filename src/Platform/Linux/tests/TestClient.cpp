@@ -16,8 +16,8 @@ bool checkMessages = false;
 bool messageMatched = false;
 bool messageReceived = false;
 MQTTNetwork ipstack;
-Cayenne::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack);
-Cayenne::MessageData testMessage;
+CayenneMQTT::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack);
+CayenneMQTT::MessageData testMessage;
 
 
 void usage(void)
@@ -100,7 +100,7 @@ void getopts(int argc, char** argv)
 }
 
 
-void outputMessage(Cayenne::MessageData& message)
+void outputMessage(CayenneMQTT::MessageData& message)
 {
 	printf("topic=%d channel=%d", message.topic, message.channel);
 	if (message.clientID) {
@@ -123,7 +123,7 @@ void outputMessage(Cayenne::MessageData& message)
 }
 
 
-void checkMessage(Cayenne::MessageData& message)
+void checkMessage(CayenneMQTT::MessageData& message)
 {
 	outputMessage(message);
 	messageMatched = true;
@@ -166,7 +166,7 @@ void checkMessage(Cayenne::MessageData& message)
 }
 
 
-void messageArrived(Cayenne::MessageData& message)
+void messageArrived(CayenneMQTT::MessageData& message)
 {
 	if (!checkMessages)
 		return;
@@ -194,7 +194,7 @@ void messageArrived(Cayenne::MessageData& message)
 }
 
 
-void configMessageArrived(Cayenne::MessageData& message)
+void configMessageArrived(CayenneMQTT::MessageData& message)
 {
 	if (!checkMessages)
 		return;
@@ -213,7 +213,7 @@ void configMessageArrived(Cayenne::MessageData& message)
 }
 
 
-void device2MessageArrived(Cayenne::MessageData& message)
+void device2MessageArrived(CayenneMQTT::MessageData& message)
 {
 	if (!checkMessages)
 		return;
@@ -232,7 +232,7 @@ void device2MessageArrived(Cayenne::MessageData& message)
 }
 
 
-void subscribe(CayenneTopic topic, unsigned int channel, Cayenne::MQTTClient<MQTTNetwork, MQTTTimer>::CayenneMessageHandler handler, const char* clientID)
+void subscribe(CayenneTopic topic, unsigned int channel, CayenneMQTT::MQTTClient<MQTTNetwork, MQTTTimer>::CayenneMessageHandler handler, const char* clientID)
 {
 	printf("Subscribe: topic=%d ", topic);
 	int rc = mqttClient.subscribe(topic, channel, handler, clientID);

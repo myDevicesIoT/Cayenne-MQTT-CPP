@@ -18,7 +18,7 @@ char password[] = "MQTT_PASSWORD";
 char clientID[] = "CLIENT_ID";
 
 MQTTNetwork ipstack;
-Cayenne::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack, username, password, clientID);
+CayenneMQTT::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack, username, password, clientID);
 bool finished = false;
 
 
@@ -26,7 +26,7 @@ bool finished = false;
 * Print the message info.
 * @param[in] message The message received from the Cayenne server.
 */
-void outputMessage(Cayenne::MessageData& message)
+void outputMessage(CayenneMQTT::MessageData& message)
 {
 	switch (message.topic)	{
 	case COMMAND_TOPIC:
@@ -64,7 +64,7 @@ void outputMessage(Cayenne::MessageData& message)
 * Handle messages received from the Cayenne server.
 * @param[in] message The message received from the Cayenne server.
 */
-void messageArrived(Cayenne::MessageData& message)
+void messageArrived(CayenneMQTT::MessageData& message)
 {
 	int error = 0;
 	// Add code to process the message. Here we just ouput the message data.

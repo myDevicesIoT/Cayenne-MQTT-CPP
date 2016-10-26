@@ -24,7 +24,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 
 // C++ version of the data array. This is defined here so it requires no source file.
 
-namespace Cayenne
+namespace CayenneMQTT
 {
 	/**
 	* @class DataArray
@@ -289,11 +289,7 @@ namespace Cayenne
 		*/
 		inline void add(const __FlashStringHelper* unit, const float value) {
 			char str[33];
-#if defined(__AVR__) || defined (ARDUINO_ARCH_ARC32)
-            dtostrf(value, 5, 3, str);
-#else
-            snprintf(str, 33, "%2.3f", value);
-#endif
+			dtostrf(value, 5, 3, str);
 			add(unit, str);
 		}
 
@@ -304,11 +300,7 @@ namespace Cayenne
 		*/
 		inline void add(const __FlashStringHelper* unit, const double value) {
 			char str[33];
-#if defined(__AVR__) || defined (ARDUINO_ARCH_ARC32)
-            dtostrf(value, 5, 3, str);
-#else
-            snprintf(str, 33, "%2.3f", value);
-#endif
+			dtostrf(value, 5, 3, str);
 			add(unit, str);
 		}
 
@@ -337,7 +329,7 @@ namespace Cayenne
 	};
 }
 
-typedef Cayenne::DataArray<> CayenneDataArray;
+typedef CayenneMQTT::DataArray<> CayenneDataArray;
 
 #else
 

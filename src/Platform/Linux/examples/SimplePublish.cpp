@@ -13,7 +13,7 @@ char password[] = "MQTT_PASSWORD";
 char clientID[] = "CLIENT_ID";
 
 MQTTNetwork ipstack;
-Cayenne::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack, username, password, clientID);
+CayenneMQTT::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack, username, password, clientID);
 
 
 // Connect to the Cayenne server.

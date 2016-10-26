@@ -24,7 +24,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 #include "../CayenneUtils/CayenneUtils.h"
 #include "../CayenneUtils/CayenneDataArray.h"
 
-namespace Cayenne
+namespace CayenneMQTT
 {
 	/**
 	* Cayenne message data passed to message handler functions.

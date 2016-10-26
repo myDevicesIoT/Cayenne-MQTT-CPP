@@ -43,7 +43,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 //#define PARSE_INFO_PAYLOADS
 
 //Some defines for AVR microcontrollers to allow easier usage of memory in program space.
-#if defined(__AVR__)
+#if defined(__AVR__) || defined(ARDUINO_ARCH_SAM)
 #include <avr/pgmspace.h>
 #define CAYENNE_USING_PROGMEM
 #define CAYENNE_PROGMEM PROGMEM
