@@ -27,8 +27,8 @@ void usage(void)
 	printf("  --host <hostname> (default is %s)\n", CAYENNE_DOMAIN);
 	printf("  --port <port> (default is %d)\n", CAYENNE_PORT);
 	printf("  --username <username> (default is username)\n");
-	printf("  --clientID <clientID> (default is clientID)\n");
 	printf("  --password <password> (default is password)\n");
+	printf("  --clientID <clientID> (default is clientID)\n");
 	printf("  --help (show this)\n");
 	exit(-1);
 }
@@ -37,13 +37,13 @@ void usage(void)
 struct opts_struct
 {
 	char* username;
-	char* clientID;
 	char* password;
+	char* clientID;
 	char* host;
 	int port;
 } opts =
 {
-	(char*)"username", (char*)"clientID", (char*)"password", (char*)CAYENNE_DOMAIN, CAYENNE_PORT
+	(char*)"username", (char*)"password", (char*)"clientID", (char*)CAYENNE_DOMAIN, CAYENNE_PORT
 };
 
 char clientID2[] = "clientID2";
@@ -80,17 +80,17 @@ void getopts(int argc, char** argv)
 			else
 				usage();
 		}
-		else if (strcmp(argv[count], "--clientID") == 0)
-		{
-			if (++count < argc)
-				opts.clientID = argv[count];
-			else
-				usage();
-		}
 		else if (strcmp(argv[count], "--password") == 0)
 		{
 			if (++count < argc)
 				opts.password = argv[count];
+			else
+				usage();
+		}
+		else if (strcmp(argv[count], "--clientID") == 0)
+		{
+			if (++count < argc)
+				opts.clientID = argv[count];
 			else
 				usage();
 		}
@@ -255,7 +255,7 @@ int connectClient(void)
 	}
 
 	printf("MQTT connecting\n");
-	rc = mqttClient.connect(opts.username, opts.clientID, opts.password);
+	rc = mqttClient.connect();
 	if (rc != 0) {
 		printf("MQTT connect failed, rc: %d\n", rc);
 		return rc;
@@ -514,6 +514,7 @@ int main(int argc, char** argv)
 	getopts(argc, argv);
 
 	printf("Cayenne MQTT Test\n");
+	mqttClient.init(opts.username, opts.password, opts.clientID);
 	mqttClient.setDefaultMessageHandler(messageArrived);
 	if (connectClient() != CAYENNE_SUCCESS) {
 		printf("Connection failed, exiting\n");

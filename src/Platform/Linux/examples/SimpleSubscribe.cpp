@@ -9,11 +9,11 @@
 
 // Cayenne authentication info. This should be obtained from the Cayenne Dashboard.
 char username[] = "MQTT_USERNAME";
-char clientID[] = "CLIENT_ID";
 char password[] = "MQTT_PASSWORD";
+char clientID[] = "CLIENT_ID";
 
 MQTTNetwork ipstack;
-Cayenne::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack);
+Cayenne::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack, username, password, clientID);
 
 
 // Handle messages received from the Cayenne server.
@@ -43,7 +43,7 @@ int connectClient(void)
 		return error;
 	}
 
-	if ((error = mqttClient.connect(username, clientID, password)) != MQTT::SUCCESS) {
+	if ((error = mqttClient.connect()) != MQTT::SUCCESS) {
 		ipstack.disconnect();
 		return error;
 	}
