@@ -10,7 +10,14 @@ This library bundles the [Eclipse Paho MQTT C/C++ client](https://github.com/ecl
   - **MQTTCommon** - Common Paho MQTT C code.
   - **Platform** - Platform specific networking and timer code, as well as test and example applications.
     - **Linux** - Linux C++ networking and timer code, as well as test and example applications. Test and example files can be built using the makefile.
-    
+
+## Adding Additional Platforms
+The Cayenne MQTT client code is platform independent but it requires platform specific code to create timers and to read and write data over the network. To add support for additional platforms you will need to create platform specific timer and networking code.
+  - **Timer** - This class is used to create countdown timers. It is described in the [TimerInterface.h](https://github.com/myDevicesIoT/Cayenne-MQTT-CPP/blob/master/src/CayenneMQTTClient/TimerInterface.h) file. An example implementation for Linux is in the [Linux/MQTTTimer.h](https://github.com/myDevicesIoT/Cayenne-MQTT-CPP/blob/master/src/Platform/Linux/MQTTTimer.h) file.
+  - **Network** - This class is used to read and write data over the network. It is described in the [NetworkInterface.h](https://github.com/myDevicesIoT/Cayenne-MQTT-CPP/blob/master/src/CayenneMQTTClient/NetworkInterface.h) file. An example implementation for Linux is in the [Linux/MQTTNetwork.h](https://github.com/myDevicesIoT/Cayenne-MQTT-CPP/blob/master/src/Platform/Linux/MQTTNetwork.h) file.
+  
+After creating new platform specific timer and networking classes you can use them by passing them as template parameters to the [MQTTClient](https://github.com/myDevicesIoT/Cayenne-MQTT-CPP/blob/master/src/CayenneMQTTClient/CayenneMQTTClient.h) class.
+
 ## Cayenne MQTT Libraries
 - **[Cayenne-MQTT-C](https://github.com/myDevicesIoT/Cayenne-MQTT-C)** - C version of the Cayenne MQTT Library.
 - **[Cayenne-MQTT-CPP](https://github.com/myDevicesIoT/Cayenne-MQTT-CPP)** - C++ version of the Cayenne MQTT Library.
