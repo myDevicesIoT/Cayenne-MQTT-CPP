@@ -28,7 +28,7 @@ public:
 	* @param[out] buffer Buffer that receives the data
 	* @param[in] len Buffer length
 	* @param[in] timeout_ms Timeout for the read operation, in milliseconds
-	* @return 1 for success, any other value for error
+	* @return Number of bytes read, or a negative value if there was an error
 	*/
 	virtual int read(unsigned char* buffer, int len, int timeout_ms) = 0;
 	

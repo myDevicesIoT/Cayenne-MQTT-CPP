@@ -24,15 +24,26 @@
 #include <unistd.h>
 #include <errno.h>
 
-
+ /**
+ * Networking class for use with MQTTClient.
+ */
 class MQTTNetwork
 {
 public:    
+	/**
+	* Default constructor.
+	*/
 	MQTTNetwork() : _connected(false)
     {
     }
     
-    int connect(const char* hostname, int port)
+	/**
+	* Connect to the specified host.
+	* @param[in] hostname Destination hostname
+	* @param[in] port Destination port
+	* @return 0 if successfully connected, an error code otherwise
+	*/
+	int connect(const char* hostname, int port)
     {
 		int type = SOCK_STREAM;
 		struct sockaddr_in address;
@@ -81,7 +92,14 @@ public:
         return rc;
     }
 
-    int read(unsigned char* buffer, int len, int timeout_ms)
+	/**
+	* Read data from the network.
+	* @param[out] buffer Buffer that receives the data
+	* @param[in] len Buffer length
+	* @param[in] timeout_ms Timeout for the read operation, in milliseconds
+	* @return Number of bytes read, or a negative value if there was an error
+	*/
+	int read(unsigned char* buffer, int len, int timeout_ms)
     {
 		struct timeval interval = { timeout_ms / 1000, (timeout_ms % 1000) * 1000 };
 		//Make sure the timeout isn't zero, otherwise it can block forever.
@@ -114,7 +132,14 @@ public:
 		return bytes;
     }
     
-    int write(unsigned char* buffer, int len, int timeout_ms)
+	/**
+	* Write data to the network.
+	* @param[in] buffer Buffer that contains data to write
+	* @param[in] len Number of bytes to write
+	* @param[in] timeout_ms Timeout for the write operation, in milliseconds
+	* @return Number of bytes written, or a negative value if there was an error
+	*/
+	int write(unsigned char* buffer, int len, int timeout_ms)
     {
 		struct timeval interval = { timeout_ms / 1000, (timeout_ms % 1000) * 1000 };
 		//Make sure the timeout isn't zero, otherwise it can block forever.
@@ -131,6 +156,10 @@ public:
 		return rc;
     }
 
+	/**
+	* Close the connection.
+	* @return 0 on success, -1 on error
+	*/
 	int disconnect()
 	{
 		int result = close(_socket);
@@ -138,6 +167,10 @@ public:
 		return result;
 	}
 
+	/**
+	* Get the connection state.
+	* @return true if connected, false if not
+	*/
 	bool connected()
 	{
 		return _connected;

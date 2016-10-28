@@ -20,55 +20,77 @@
 #include <sys/time.h>
 #include <stdio.h>
 
+ /**
+ * Timer class for use with MQTTClient.
+ */
 class MQTTTimer
 {
 public:
+	/**
+	* Construct a timer.
+	*/
 	MQTTTimer()
-    { 
-	
-    }
+	{
 
-	MQTTTimer(int ms)
-    { 
-		countdown_ms(ms);
-    }
-    
+	}
 
-    bool expired()
-    {
-		struct timeval now, res;
-		gettimeofday(&now, NULL);
-		timersub(&end_time, &now, &res);		
-        return res.tv_sec < 0 || (res.tv_sec == 0 && res.tv_usec <= 0);
-    }
-    
+	/**
+	* Construct a timer and start it.
+	* @param[in] milliseconds Number of milliseconds to count down.
+	*/
+	MQTTTimer(int milliseconds)
+	{
+		countdown_ms(milliseconds);
+	}
 
-    void countdown_ms(int ms)  
-    {
-		struct timeval now;
-		gettimeofday(&now, NULL);
-		struct timeval interval = {ms / 1000, (ms % 1000) * 1000};
-		timeradd(&now, &interval, &end_time);
-    }
-
-    
-    void countdown(int seconds)
-    {
-		struct timeval now;
-		gettimeofday(&now, NULL);
-		struct timeval interval = {seconds, 0};
-		timeradd(&now, &interval, &end_time);
-    }
-
-    
-    int left_ms()
-    {
+	/**
+	* The countdown timer has expired.
+	* @return true if countdown has expired, false otherwise.
+	*/
+	bool expired()
+	{
 		struct timeval now, res;
 		gettimeofday(&now, NULL);
 		timersub(&end_time, &now, &res);
-        return (res.tv_sec < 0) ? 0 : res.tv_sec * 1000 + res.tv_usec / 1000;
-    }
-    
+		return res.tv_sec < 0 || (res.tv_sec == 0 && res.tv_usec <= 0);
+	}
+
+	/**
+	* Start countdown in milliseconds.
+	* @param[in] milliseconds Number of milliseconds to count down.
+	*/
+	void countdown_ms(int milliseconds)
+	{
+		struct timeval now;
+		gettimeofday(&now, NULL);
+		struct timeval interval = { milliseconds / 1000, (milliseconds % 1000) * 1000 };
+		timeradd(&now, &interval, &end_time);
+	}
+
+	/**
+	* Start countdown in seconds.
+	* @param[in] seconds Number of seconds to count down.
+	*/
+	void countdown(int seconds)
+	{
+		struct timeval now;
+		gettimeofday(&now, NULL);
+		struct timeval interval = { seconds, 0 };
+		timeradd(&now, &interval, &end_time);
+	}
+
+	/**
+	* Get the number of milliseconds left in countdown.
+	* @return Number of milliseconds left.
+	*/
+	int left_ms()
+	{
+		struct timeval now, res;
+		gettimeofday(&now, NULL);
+		timersub(&end_time, &now, &res);
+		return (res.tv_sec < 0) ? 0 : res.tv_sec * 1000 + res.tv_usec / 1000;
+	}
+
 private:
 
 	struct timeval end_time;
