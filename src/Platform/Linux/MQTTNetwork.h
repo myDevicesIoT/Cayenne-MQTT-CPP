@@ -29,14 +29,14 @@
  */
 class MQTTNetwork
 {
-public:    
+public:
 	/**
 	* Default constructor.
 	*/
 	MQTTNetwork() : _connected(false)
-    {
-    }
-    
+	{
+	}
+
 	/**
 	* Connect to the specified host.
 	* @param[in] hostname Destination hostname
@@ -44,13 +44,13 @@ public:
 	* @return 0 if successfully connected, an error code otherwise
 	*/
 	int connect(const char* hostname, int port)
-    {
+	{
 		int type = SOCK_STREAM;
 		struct sockaddr_in address;
 		int rc = -1;
 		sa_family_t family = AF_INET;
 		struct addrinfo *result = NULL;
-		struct addrinfo hints = {0, AF_UNSPEC, SOCK_STREAM, IPPROTO_TCP, 0, NULL, NULL, NULL};
+		struct addrinfo hints = { 0, AF_UNSPEC, SOCK_STREAM, IPPROTO_TCP, 0, NULL, NULL, NULL };
 
 		if ((rc = getaddrinfo(hostname, NULL, &hints, &result)) == 0)
 		{
@@ -84,13 +84,13 @@ public:
 			_socket = socket(family, type, 0);
 			if (_socket != -1)
 			{
-				if((rc = ::connect(_socket, (struct sockaddr*)&address, sizeof(address))) == 0)
+				if ((rc = ::connect(_socket, (struct sockaddr*)&address, sizeof(address))) == 0)
 					_connected = true;
 			}
 		}
 
-        return rc;
-    }
+		return rc;
+	}
 
 	/**
 	* Read data from the network.
@@ -100,7 +100,7 @@ public:
 	* @return Number of bytes read, or a negative value if there was an error
 	*/
 	int read(unsigned char* buffer, int len, int timeout_ms)
-    {
+	{
 		struct timeval interval = { timeout_ms / 1000, (timeout_ms % 1000) * 1000 };
 		//Make sure the timeout isn't zero, otherwise it can block forever.
 		if (interval.tv_sec < 0 || (interval.tv_sec == 0 && interval.tv_usec <= 0))
@@ -130,8 +130,8 @@ public:
 		}
 
 		return bytes;
-    }
-    
+	}
+
 	/**
 	* Write data to the network.
 	* @param[in] buffer Buffer that contains data to write
@@ -140,7 +140,7 @@ public:
 	* @return Number of bytes written, or a negative value if there was an error
 	*/
 	int write(unsigned char* buffer, int len, int timeout_ms)
-    {
+	{
 		struct timeval interval = { timeout_ms / 1000, (timeout_ms % 1000) * 1000 };
 		//Make sure the timeout isn't zero, otherwise it can block forever.
 		if (interval.tv_sec < 0 || (interval.tv_sec == 0 && interval.tv_usec <= 0))
@@ -154,7 +154,7 @@ public:
 		if (rc == -1 && (errno == ENOTCONN || errno == ECONNRESET || errno == EPIPE))
 			_connected = false;
 		return rc;
-    }
+	}
 
 	/**
 	* Close the connection.
@@ -178,7 +178,7 @@ public:
 
 private:
 
-    int _socket; 
+	int _socket;
 	bool _connected;
 };
 
