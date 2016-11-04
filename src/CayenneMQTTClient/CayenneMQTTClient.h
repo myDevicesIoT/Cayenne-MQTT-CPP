@@ -321,17 +321,14 @@ namespace CayenneMQTT
 
 		/**
 		* Send a response to a channel.
-		* @param[in] topic Cayenne topic
-		* @param[in] channel The channel to send data to, or CAYENNE_NO_CHANNEL if there is none
-		* @param[in] channel The channel to send response to
 		* @param[in] id ID of message the response is for
 		* @param[in] error Optional error message, NULL for success
 		* @param[in] clientID The client ID to use in the topic, NULL to use the clientID the client was initialized with
 		* @return success code
 		*/
-		int publishResponse(unsigned int channel, const char* id, const char* error, const char* clientID = NULL) {
+		int publishResponse(const char* id, const char* error, const char* clientID = NULL) {
 			char buffer[MAX_MQTT_PACKET_SIZE + 1] = { 0 };
-			int result = CayenneBuildTopic(buffer, sizeof(buffer), _username, clientID ? clientID : _clientID, RESPONSE_TOPIC, channel);
+			int result = CayenneBuildTopic(buffer, sizeof(buffer), _username, clientID ? clientID : _clientID, RESPONSE_TOPIC, CAYENNE_NO_CHANNEL);
 			if (result == CAYENNE_SUCCESS) {
 				size_t size = strlen(buffer);
 				char* payload = &buffer[size + 1];

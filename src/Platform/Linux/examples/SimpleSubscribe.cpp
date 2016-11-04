@@ -25,7 +25,7 @@ void messageArrived(CayenneMQTT::MessageData& message)
 	if (message.topic == COMMAND_TOPIC) {
 		// If this is a command message we publish a response to show we recieved it. Here we are just sending a default 'OK' response.
 		// An error response should be sent if there are issues processing the message.
-		mqttClient.publishResponse(message.channel, message.id, NULL, message.clientID);
+		mqttClient.publishResponse(message.id, NULL, message.clientID);
 
 		// Send the updated state for the channel so it is reflected in the Cayenne dashboard. If a command is successfully processed
 		// the updated state will usually just be the value received in the command message.
