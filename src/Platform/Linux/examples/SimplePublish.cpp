@@ -48,8 +48,8 @@ void loop(void)
 		mqttClient.yield(1000);
 
 		// Publish some example data every second. This should be changed to send your actual data to Cayenne.
-		mqttClient.publishData(DATA_TOPIC, 0, TEMPERATURE, CELSIUS, 30.5);
-		mqttClient.publishData(DATA_TOPIC, 1, LUMINOSITY, LUX, 1000);
+		mqttClient.publishData(DATA_TOPIC, 0, TYPE_TEMPERATURE, UNIT_CELSIUS, 30.5);
+		mqttClient.publishData(DATA_TOPIC, 1, TYPE_LUMINOSITY, UNIT_LUX, 1000);
 	}
 }
 
