@@ -52,7 +52,7 @@ struct Message
     bool dup;
     unsigned short id;
     void *payload;
-    size_t payloadlen;
+    int payloadlen;
 };
 
 
@@ -576,7 +576,7 @@ int MQTT::Client<Network, Timer, MAX_MQTT_PACKET_SIZE, b>::cycle(Timer& timer)
             Message msg;
             int intQoS;
             if (MQTTDeserialize_publish((unsigned char*)&msg.dup, &intQoS, (unsigned char*)&msg.retained, (unsigned short*)&msg.id, &topicName,
-                                 (unsigned char**)&msg.payload, (int*)&msg.payloadlen, readbuf, MAX_MQTT_PACKET_SIZE) != 1)
+                                 (unsigned char**)&msg.payload, &msg.payloadlen, readbuf, MAX_MQTT_PACKET_SIZE) != 1)
                 goto exit;
             msg.qos = (enum QoS)intQoS;
 #if MQTTCLIENT_QOS2
