@@ -108,7 +108,7 @@ void getOptions(int argc, char** argv)
 
 /**
 * Print message data.
-* @param[in] message The message print
+* @param[in] message The message to print
 */
 void outputMessage(CayenneMQTT::MessageData& message)
 {
