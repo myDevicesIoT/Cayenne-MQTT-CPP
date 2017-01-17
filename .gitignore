@@ -1,0 +1,5 @@
+# Windows files and folders
+*.suo
+x64
+Debug
+Release
