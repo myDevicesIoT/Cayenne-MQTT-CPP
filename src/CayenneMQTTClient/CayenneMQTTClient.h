@@ -313,7 +313,7 @@ namespace CayenneMQTT
 				size = sizeof(buffer) - (size + 1);
 				result = CayenneBuildDataPayload(payload, &size, type, values, valueCount);
 				if (result == CAYENNE_SUCCESS) {
-					result = Base::publish(buffer, payload, size, MQTT::QOS0, true);
+					result = Base::publish(buffer, payload, size, MQTT::QOS0, (topic != COMMAND_TOPIC) ? true : false);
 				}
 			}
 			return result;
