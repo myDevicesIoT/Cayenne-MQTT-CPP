@@ -91,7 +91,7 @@ DLLExport int CayenneBuildResponsePayload(char* payload, size_t* length, const c
 * @param[in] length Topic name string length
 * @return CAYENNE_SUCCESS if topic was parsed, error code otherwise
 */
-DLLExport int CayenneParseTopic(CayenneTopic* topic, unsigned int* channel, const char** clientID, const char* username, char* topicName, unsigned int length);
+DLLExport int CayenneParseTopic(CayenneTopic* topic, unsigned int* channel, const char** clientID, const char* username, char* topicName, size_t length);
 
 /**
 * Parse a null terminated payload in place. This may modify the payload string. 

@@ -52,7 +52,7 @@ struct Message
     bool dup;
     unsigned short id;
     void *payload;
-    int payloadlen;
+    size_t payloadlen;
 };
 
 
@@ -762,7 +762,7 @@ int MQTT::Client<Network, Timer, MAX_MQTT_PACKET_SIZE, b>::connect(MQTTPacket_co
         goto exit;
 
     this->keepAliveInterval = options.keepAliveInterval;
-    this->cleansession = options.cleansession;
+    this->cleansession = (options.cleansession != 0);
     if ((len = MQTTSerialize_connect(sendbuf, MAX_MQTT_PACKET_SIZE, &options)) <= 0)
         goto exit;
     if ((rc = sendPacket(len, connect_timer)) != SUCCESS)  // send the connect packet

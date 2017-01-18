@@ -17,7 +17,7 @@ bool messageReceived = false;
 MQTTNetwork ipstack;
 CayenneMQTT::MQTTClient<MQTTNetwork, MQTTTimer> mqttClient(ipstack);
 CayenneMQTT::MessageData testMessage;
-size_t failureCount = 0;
+int failureCount = 0;
 
 /**
 * Output usage info for this test app.
@@ -160,18 +160,18 @@ void checkMessage(CayenneMQTT::MessageData& message)
 		messageMatched = false;
 	}
 	if (message.valueCount != testMessage.valueCount) {
-		printf(" valCount err: %u\n", testMessage.valueCount);
+		printf(" valCount err: %zu\n", testMessage.valueCount);
 		messageMatched = false;
 	}
 	for (size_t i = 0; i < message.valueCount; ++i) {
 		if (((message.values[i].value != NULL) || (testMessage.values[i].value != NULL)) &&
 			(message.values[i].value && testMessage.values[i].value && (strcmp(message.values[i].value, testMessage.values[i].value) != 0))) {
-			printf(" val%d err: %s\n", i, testMessage.values[i].value ? testMessage.values[i].value : "NULL");
+			printf(" val%zu err: %s\n", i, testMessage.values[i].value ? testMessage.values[i].value : "NULL");
 			messageMatched = false;
 		}
 		if (((message.values[i].unit != NULL) || (testMessage.values[i].unit != NULL)) &&
 			(message.values[i].unit && testMessage.values[i].unit && (strcmp(message.values[i].unit, testMessage.values[i].unit) != 0))) {
-			printf(" unit%d err: %s\n", i, testMessage.values[i].unit ? testMessage.values[i].unit : "NULL");
+			printf(" unit%zu err: %s\n", i, testMessage.values[i].unit ? testMessage.values[i].unit : "NULL");
 			messageMatched = false;
 		}
 	}
@@ -604,7 +604,7 @@ int main(int argc, char** argv)
 	testPublishLong(DATA_TOPIC, 4, -4, TYPE_PROXIMITY, UNIT_CENTIMETER, parseInfoPayload, NULL);
 	testPublishULong(DATA_TOPIC, 5, 5, TYPE_LUMINOSITY, UNIT_LUX, parseInfoPayload, NULL);
 	testPublishDouble(DATA_TOPIC, 6, 6.6, TYPE_BAROMETRIC_PRESSURE, UNIT_HECTOPASCAL, parseInfoPayload, NULL);
-	testPublishFloat(DATA_TOPIC, 7, 7.7, TYPE_RELATIVE_HUMIDITY, UNIT_PERCENT, parseInfoPayload, NULL);
+	testPublishFloat(DATA_TOPIC, 7, float(7.7), TYPE_RELATIVE_HUMIDITY, UNIT_PERCENT, parseInfoPayload, NULL);
 	testPublish(SYS_MODEL_TOPIC, CAYENNE_NO_CHANNEL, "Model", NULL, NULL, parseInfoPayload, NULL);
 	testPublish(SYS_VERSION_TOPIC, CAYENNE_NO_CHANNEL, "1.0.0", NULL, NULL, parseInfoPayload, NULL);
 	testPublish(COMMAND_TOPIC, 0, NULL, "1", "respond with error", true, NULL);
@@ -629,7 +629,7 @@ int main(int argc, char** argv)
 	QueryPerformanceCounter(&after);
 	LARGE_INTEGER elapsed;
 	elapsed.QuadPart = (after.QuadPart - before.QuadPart) / countsPerMS.QuadPart;
-	printf("MQTT Test Finished, elapsed time %lld ms, failure count: %zu\n", elapsed.QuadPart, failureCount);
+	printf("MQTT Test Finished, elapsed time %lld ms, failure count: %d\n", elapsed.QuadPart, failureCount);
 
 	return failureCount;
 }
