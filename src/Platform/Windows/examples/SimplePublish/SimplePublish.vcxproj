@@ -160,7 +160,6 @@
     <ClInclude Include="..\..\..\..\CayenneMQTTClient\MQTTLogging.h" />
     <ClInclude Include="..\..\..\..\CayenneMQTTClient\NetworkInterface.h" />
     <ClInclude Include="..\..\..\..\CayenneMQTTClient\TimerInterface.h" />
-    <ClInclude Include="..\..\..\..\CayenneUtils\CayenneDataArray.h" />
     <ClInclude Include="..\..\..\..\CayenneUtils\CayenneDefines.h" />
     <ClInclude Include="..\..\..\..\CayenneUtils\CayenneTopics.h" />
     <ClInclude Include="..\..\..\..\CayenneUtils\CayenneTypes.h" />
@@ -175,7 +174,6 @@
     <ClInclude Include="..\..\MQTTWindows.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\CayenneUtils\CayenneDataArray.c" />
     <ClCompile Include="..\..\..\..\CayenneUtils\CayenneUtils.c" />
     <ClCompile Include="..\..\..\..\MQTTCommon\MQTTConnectClient.c" />
     <ClCompile Include="..\..\..\..\MQTTCommon\MQTTDeserializePublish.c" />

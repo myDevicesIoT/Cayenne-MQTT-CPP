@@ -22,7 +22,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 #include "MQTTClient.h"
 #include "../CayenneUtils/CayenneDefines.h"
 #include "../CayenneUtils/CayenneUtils.h"
-#include "../CayenneUtils/CayenneDataArray.h"
 
 namespace CayenneMQTT
 {
@@ -36,22 +35,20 @@ namespace CayenneMQTT
 		unsigned int channel; /**< The channel the message was received on. */
 		const char* id; /**< The message ID, if it is a command message, otherwise NULL. */
 		const char* type; /**< The type of data in the message, if it exists, otherwise NULL. */
-		CayenneValuePair values[CAYENNE_MAX_MESSAGE_VALUES]; /**< The unit/value data pairs in the message. The units and values can be NULL. */
-		size_t valueCount; /**< The count of items in the values array. */
+		const char* unit; /**< The unit of data in the message, if it exists, otherwise NULL. */
+		const char* value; /**< The value of data in the message, if it exists, otherwise NULL. */
 
 		/**
-		* Get value at specified index.
-		* @param[in] index Index of value to retrieve, if none is specified it gets the first value.
-		* @return Value at the specified index, can be NULL.
+		* Get message value.
+		* @return Message value, can be NULL.
 		*/
-		const char* getValue(size_t index = 0) const { return values[index].value; }
+		const char* getValue() const { return value; }
 
 		/**
-		* Get unit at specified index.
-		* @param[in] index Index of unit to retrieve, if none is specified it gets the first unit.
-		* @return Unit at the specified index, can be NULL.
+		* Get message unit.
+		* @return Message unit, can be NULL.
 		*/
-		const char* getUnit(size_t index = 0) const { return values[index].unit; }
+		const char* getUnit() const { return unit; }
 	} MessageData;
 	
 	/**
@@ -155,23 +152,6 @@ namespace CayenneMQTT
 		*/
 		int disconnect() {
 			return Base::disconnect();
-		};
-
-		/**
-		* Send data to Cayenne.
-		* @param[in] topic Cayenne topic
-		* @param[in] channel The channel to send data to, or CAYENNE_NO_CHANNEL if there is none
-		* @param[in] type Type to use for a type=value pair, can be NULL if sending to a topic that doesn't require type
-		* @param[in] unit Optional unit to use for a type,unit=value payload, can be NULL
-		* @param[in] value Data value
-		* @param[in] clientID The client ID to use in the topic, NULL to use the clientID the client was initialized with
-		* @return success code
-		*/
-		int publishData(CayenneTopic topic, unsigned int channel, const char* type, const char* unit, const char* value, const char* clientID = NULL) {
-			CayenneValuePair valuePair[1];
-			valuePair[0].value = value;
-			valuePair[0].unit = unit;
-			return publishData(topic, channel, type, valuePair, 1, clientID);
 		};
 
 		/**
@@ -304,14 +284,14 @@ namespace CayenneMQTT
 		* @param[in] clientID The client ID to use in the topic, NULL to use the clientID the client was initialized with
 		* @return success code
 		*/
-		int publishData(CayenneTopic topic, unsigned int channel, const char* type, const CayenneValuePair* values, size_t valueCount, const char* clientID = NULL) {
+		int publishData(CayenneTopic topic, unsigned int channel, const char* type, const char* unit, const char* value, const char* clientID = NULL) {
 			char buffer[MAX_MQTT_PACKET_SIZE + 1] = { 0 };
 			int result = CayenneBuildTopic(buffer, sizeof(buffer), _username, clientID ? clientID : _clientID, topic, channel);
 			if (result == CAYENNE_SUCCESS) {
 				size_t size = strlen(buffer);
 				char* payload = &buffer[size + 1];
 				size = sizeof(buffer) - (size + 1);
-				result = CayenneBuildDataPayload(payload, &size, type, values, valueCount);
+				result = CayenneBuildDataPayload(payload, &size, type, unit, value);
 				if (result == CAYENNE_SUCCESS) {
 					result = Base::publish(buffer, payload, size, MQTT::QOS0, (topic != COMMAND_TOPIC) ? true : false);
 				}
@@ -410,8 +390,7 @@ namespace CayenneMQTT
 				return;
 			//Null terminate the string since that is required by CayenneParsePayload. The readbuf is set to CAYENNE_MAX_MESSAGE_SIZE+1 to allow for appending a null.
 			(static_cast<char*>(md.message.payload))[md.message.payloadlen] = '\0';
-			message.valueCount = CAYENNE_MAX_MESSAGE_VALUES;
-			result = CayenneParsePayload(message.values, &message.valueCount, &message.type, &message.id, message.topic, static_cast<char*>(md.message.payload));
+			result = CayenneParsePayload(&message.type, &message.unit, &message.value, &message.id, message.topic, static_cast<char*>(md.message.payload));
 			if (result != CAYENNE_SUCCESS)
 				return;
 

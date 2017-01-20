@@ -57,9 +57,6 @@
     <ClInclude Include="..\..\..\..\MQTTCommon\MQTTUnsubscribe.h">
       <Filter>Header Files\MQTTCommon</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\CayenneUtils\CayenneDataArray.h">
-      <Filter>Header Files\CayenneUtils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\CayenneUtils\CayenneDefines.h">
       <Filter>Header Files\CayenneUtils</Filter>
     </ClInclude>
@@ -93,9 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\CayenneUtils\CayenneUtils.c">
-      <Filter>Source Files\CayenneUtils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\CayenneUtils\CayenneDataArray.c">
       <Filter>Source Files\CayenneUtils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\MQTTCommon\MQTTUnsubscribeClient.c">

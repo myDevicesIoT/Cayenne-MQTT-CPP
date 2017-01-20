@@ -119,13 +119,11 @@ void outputMessage(CayenneMQTT::MessageData& message)
 	if (message.type) {
 		printf(" type=%s", message.type);
 	}
-	for (size_t i = 0; i < message.valueCount; ++i) {
-		if (message.getUnit(i)) {
-			printf(" unit=%s", message.getUnit(i));
-		}
-		if (message.getValue(i)) {
-			printf(" value=%s", message.getValue(i));
-		}
+	if (message.unit) {
+		printf(" unit=%s", message.unit);
+	}
+	if (message.value) {
+		printf(" value=%s", message.value);
 	}
 	if (message.id) {
 		printf(" id=%s", message.id);
@@ -156,25 +154,17 @@ void checkMessage(CayenneMQTT::MessageData& message)
 		printf(" type err: %s\n", testMessage.type ? testMessage.type : "NULL");
 		messageMatched = false;
 	}
+	if (((message.unit != NULL) || (testMessage.unit != NULL)) && (message.unit && testMessage.unit && strcmp(message.unit, testMessage.unit) != 0)) {
+		printf(" unit err: %s\n", testMessage.unit ? testMessage.unit : "NULL");
+		messageMatched = false;
+	}
+	if (((message.value != NULL) || (testMessage.value != NULL)) && (message.value && testMessage.value && strcmp(message.value, testMessage.value) != 0)) {
+		printf(" value err: %s\n", testMessage.value ? testMessage.value : "NULL");
+		messageMatched = false;
+	}
 	if (((message.id != NULL) || (testMessage.id != NULL)) && (message.id && testMessage.id && strcmp(message.id, testMessage.id) != 0)) {
 		printf(" id err: %s\n", testMessage.id ? testMessage.id : "NULL");
 		messageMatched = false;
-	}
-	if (message.valueCount != testMessage.valueCount) {
-		printf(" valCount err: %u\n", testMessage.valueCount);
-		messageMatched = false;
-	}
-	for (size_t i = 0; i < message.valueCount; ++i) {
-		if (((message.values[i].value != NULL) || (testMessage.values[i].value != NULL)) &&
-			(message.values[i].value && testMessage.values[i].value && (strcmp(message.values[i].value, testMessage.values[i].value) != 0))) {
-			printf(" val%d err: %s\n", i, testMessage.values[i].value ? testMessage.values[i].value : "NULL");
-			messageMatched = false;
-		}
-		if (((message.values[i].unit != NULL) || (testMessage.values[i].unit != NULL)) &&
-			(message.values[i].unit && testMessage.values[i].unit && (strcmp(message.values[i].unit, testMessage.values[i].unit) != 0))) {
-			printf(" unit%d err: %s\n", i, testMessage.values[i].unit ? testMessage.values[i].unit : "NULL");
-			messageMatched = false;
-		}
 	}
 }
 
@@ -353,9 +343,8 @@ void initTestMessage(CayenneTopic topic, unsigned int channel, const char* value
 	testMessage.channel = channel;
 	testMessage.clientID = clientID ? clientID : opts.clientID;
 	testMessage.type = type;
-	testMessage.values[0].value = value;
-	testMessage.values[0].unit = unit;
-	testMessage.valueCount = 1;
+	testMessage.value = value;
+	testMessage.unit = unit;
 	printf("Publish: ");
 	outputMessage(testMessage);
 }
@@ -374,8 +363,8 @@ void checkPublishSuccess(CayenneTopic topic, const char* type, const char* unit,
 	//Some messages are parsed differently so update the test message to make the comparison work.
 	case COMMAND_TOPIC:
 		testMessage.id = type;
-		testMessage.values[0].value = unit;
-		testMessage.values[0].unit = NULL;
+		testMessage.value = unit;
+		testMessage.unit = NULL;
 		testMessage.type = NULL;
 		break;
 	default:
@@ -606,6 +595,9 @@ int main(int argc, char** argv)
 	testPublishULong(DATA_TOPIC, 5, 5, TYPE_LUMINOSITY, UNIT_LUX, parseInfoPayload, NULL);
 	testPublishDouble(DATA_TOPIC, 6, 6.6, TYPE_BAROMETRIC_PRESSURE, UNIT_HECTOPASCAL, parseInfoPayload, NULL);
 	testPublishFloat(DATA_TOPIC, 7, 7.7, TYPE_RELATIVE_HUMIDITY, UNIT_PERCENT, parseInfoPayload, NULL);
+	char valueArray[50] = {};
+	snprintf(valueArray, 50, "[%.5f,%.5f,%.1f]", 27.9878, 86.9250, 29029.0);
+	testPublish(DATA_TOPIC, 8, valueArray, TYPE_GPS, UNIT_METER, parseInfoPayload, NULL);
 	testPublish(SYS_MODEL_TOPIC, CAYENNE_NO_CHANNEL, "Model", NULL, NULL, parseInfoPayload, NULL);
 	testPublish(SYS_VERSION_TOPIC, CAYENNE_NO_CHANNEL, "1.0.0", NULL, NULL, parseInfoPayload, NULL);
 	testPublish(COMMAND_TOPIC, 0, NULL, "1", "respond with error", true, NULL);
