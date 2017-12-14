@@ -28,9 +28,6 @@ void outputMessage(CayenneMQTT::MessageData& message)
 	case COMMAND_TOPIC:
 		printf("topic=Command");
 		break;
-	case CONFIG_TOPIC:
-		printf("topic=Config");
-		break;
 	default:
 		printf("topic=%d", message.topic);
 		break;
@@ -101,19 +98,14 @@ int connectClient(void)
 	}
 	printf("Connected\n");
 
-	// Subscribe to required topics.
+	// Subscribe to the Command topic.
 	if ((error = mqttClient.subscribe(COMMAND_TOPIC, CAYENNE_ALL_CHANNELS)) != CAYENNE_SUCCESS) {
 		printf("Subscription to Command topic failed, error: %d\n", error);
-	}
-	if ((error = mqttClient.subscribe(CONFIG_TOPIC, CAYENNE_ALL_CHANNELS)) != CAYENNE_SUCCESS) {
-		printf("Subscription to Config topic failed, error:%d\n", error);
 	}
 
 	// Send device info. Here we just send some example values for the system info. These should be changed to use actual system data, or removed if not needed.
 	mqttClient.publishData(SYS_VERSION_TOPIC, CAYENNE_NO_CHANNEL, NULL, NULL, CAYENNE_VERSION);
 	mqttClient.publishData(SYS_MODEL_TOPIC, CAYENNE_NO_CHANNEL, NULL, NULL, "Windows");
-	mqttClient.publishData(SYS_CPU_MODEL_TOPIC, CAYENNE_NO_CHANNEL, NULL, NULL, "CPU Model");
-	mqttClient.publishData(SYS_CPU_SPEED_TOPIC, CAYENNE_NO_CHANNEL, NULL, NULL, "1000000000");
 
 	return CAYENNE_SUCCESS;
 }

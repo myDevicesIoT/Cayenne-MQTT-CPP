@@ -49,9 +49,8 @@ int connectClient(void)
 	}
 	printf("Connected\n");
 
-	// Subscribe to required topics. Here we subscribe to the Command and Config topics.
+	// Subscribe to the Command topic.
 	mqttClient.subscribe(COMMAND_TOPIC, CAYENNE_ALL_CHANNELS);
-	mqttClient.subscribe(CONFIG_TOPIC, CAYENNE_ALL_CHANNELS);
 
 	return CAYENNE_SUCCESS;
 }
