@@ -63,10 +63,10 @@ namespace CayenneMQTT
 	* @param MAX_MESSAGE_HANDLERS Maximum number of message handlers.
 	*/
 	template<class Network, class Timer, int MAX_MQTT_PACKET_SIZE = CAYENNE_MAX_MESSAGE_SIZE, int MAX_MESSAGE_HANDLERS = 5>
-	class MQTTClient : private MQTT::Client<Network, Timer, MAX_MQTT_PACKET_SIZE, 0>
+	class MQTTClient : private MQTT::Client<Network, Timer, MAX_MQTT_PACKET_SIZE, 1>
 	{
 	public:
-		typedef MQTT::Client<Network, Timer, MAX_MQTT_PACKET_SIZE, 0> Base;
+		typedef MQTT::Client<Network, Timer, MAX_MQTT_PACKET_SIZE, 1> Base;
 		typedef void(*CayenneMessageHandler)(MessageData&);
 
 		/**

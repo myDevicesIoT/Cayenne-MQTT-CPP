@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Platform">
+      <UniqueIdentifier>{5931fab6-75d8-4821-96fc-3e952f076c57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CayenneMQTTClient">
+      <UniqueIdentifier>{8de2da13-9ecf-444a-adeb-484c5ab404b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CayenneUtils">
+      <UniqueIdentifier>{d29b2cd0-e5b9-4e9c-a705-84eaa7b01153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MQTTCommon">
+      <UniqueIdentifier>{a25a409a-f749-4afd-874e-2f91c6708fd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CayenneUtils">
+      <UniqueIdentifier>{9ced6eb2-cd86-4cff-9436-5fc186b3b59c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MQTTCommon">
+      <UniqueIdentifier>{852fff46-c5c5-46e4-addb-c5e99bd5b0ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\MQTTNetwork.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MQTTTimer.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MQTTWindows.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\MQTTCommon\MQTTConnect.h">
+      <Filter>Header Files\MQTTCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\MQTTCommon\MQTTPacket.h">
+      <Filter>Header Files\MQTTCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\MQTTCommon\MQTTPublish.h">
+      <Filter>Header Files\MQTTCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\MQTTCommon\MQTTSubscribe.h">
+      <Filter>Header Files\MQTTCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\MQTTCommon\MQTTUnsubscribe.h">
+      <Filter>Header Files\MQTTCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneUtils\CayenneDataArray.h">
+      <Filter>Header Files\CayenneUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneUtils\CayenneDefines.h">
+      <Filter>Header Files\CayenneUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneUtils\CayenneTopics.h">
+      <Filter>Header Files\CayenneUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneUtils\CayenneTypes.h">
+      <Filter>Header Files\CayenneUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneUtils\CayenneUtils.h">
+      <Filter>Header Files\CayenneUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneMQTTClient\CayenneMQTTClient.h">
+      <Filter>Header Files\CayenneMQTTClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneMQTTClient\FP.h">
+      <Filter>Header Files\CayenneMQTTClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneMQTTClient\MQTTClient.h">
+      <Filter>Header Files\CayenneMQTTClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneMQTTClient\MQTTLogging.h">
+      <Filter>Header Files\CayenneMQTTClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneMQTTClient\NetworkInterface.h">
+      <Filter>Header Files\CayenneMQTTClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CayenneMQTTClient\TimerInterface.h">
+      <Filter>Header Files\CayenneMQTTClient</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\CayenneUtils\CayenneUtils.c">
+      <Filter>Source Files\CayenneUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\CayenneUtils\CayenneDataArray.c">
+      <Filter>Source Files\CayenneUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\MQTTCommon\MQTTUnsubscribeClient.c">
+      <Filter>Source Files\MQTTCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\MQTTCommon\MQTTConnectClient.c">
+      <Filter>Source Files\MQTTCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\MQTTCommon\MQTTDeserializePublish.c">
+      <Filter>Source Files\MQTTCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\MQTTCommon\MQTTPacket.c">
+      <Filter>Source Files\MQTTCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\MQTTCommon\MQTTSerializePublish.c">
+      <Filter>Source Files\MQTTCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\MQTTCommon\MQTTSubscribeClient.c">
+      <Filter>Source Files\MQTTCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="TestClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

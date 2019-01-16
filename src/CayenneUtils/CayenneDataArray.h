@@ -348,8 +348,8 @@ typedef CayenneMQTT::DataArray<> CayenneDataArray;
 		CayenneValuePair values[CAYENNE_MAX_MESSAGE_VALUES];
 		unsigned int valueCount;
 		char* buffer;
-		unsigned int bufferSize;
-		unsigned int bufferIndex;
+		size_t bufferSize;
+		size_t bufferIndex;
 	} CayenneDataArray;
 
 	/**

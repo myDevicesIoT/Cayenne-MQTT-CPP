@@ -1,0 +1,12 @@
+# Linux files and folders
+build/
+cayenneclient
+simplepub
+simplesub
+testclient
+
+# Windows files and folders
+*.suo
+x64
+Debug
+Release
