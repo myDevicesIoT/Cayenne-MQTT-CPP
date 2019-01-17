@@ -10,7 +10,12 @@ This library bundles the [Eclipse Paho MQTT C/C++ client](https://github.com/ecl
   - **MQTTCommon** - Common Paho MQTT C code.
   - **Platform** - Platform specific networking and timer code, as well as test and example applications.
     - **Linux** - Linux C++ networking and timer code, as well as test and example applications. Test and example files can be built using the makefile.
-    - **Windows** - Windows C++ networking and timer code, as well as test and example applications. Test and example files can be built using Visual Studio 2015.
+    - **Windows** - Windows C++ networking and timer code, as well as test and example applications. Test and example files can be built using Visual Studio 2017.
+
+## Building Examples
+To build on Linux switch to the root folder and run: `make`
+
+To build on Windows load the Visual Studio 2017 solution file at `src\Platform\Windows\Cayenne.sln` and build the project.
 
 ## Adding Additional Platforms
 The Cayenne MQTT client code is platform independent but it requires platform specific code to create timers and to read and write data over the network. To add support for additional platforms you will need to create platform specific timer and networking code.
