@@ -6,6 +6,7 @@ simplesub
 testclient
 
 # Windows files and folders
+.vs/
 *.suo
 x64
 Debug
